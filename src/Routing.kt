@@ -18,9 +18,13 @@ fun Routing.nCoVMapRouting() {
      * 获取中国地图数据
      */
     get("/map") {
+        if (mapCache != null && System.currentTimeMillis() - mapCache!!.datetime  < DATA_EXPIRE) {
+            call.respondText { mapCache!!.data }
+            return@get
+        }
         call.respondText {
             try {
-                JSONArray(JSONObject(HttpClient().get<String>(dataUrl)).optString("data")).filter { country ->
+                val json = JSONArray(JSONObject(HttpClient().get<String>(dataUrl)).optString("data")).filter { country ->
                     (country as JSONObject).optString("country") == "中国"
                 }.groupBy { area ->
                     (area as JSONObject).optString("area")
@@ -29,8 +33,9 @@ fun Routing.nCoVMapRouting() {
                         (item as JSONObject).optInt("confirm", 0)
                     }
                 }.stringIntToJson()
+                mapCache = DataCache(System.currentTimeMillis(), json)
+                json
             } catch (th: Throwable) {
-                println("error => $th")
                 "[]"
             }
         }
@@ -40,6 +45,10 @@ fun Routing.nCoVMapRouting() {
      * 获取每日疫情数据
      */
     get("/daily") {
+        if (dailyCache != null && System.currentTimeMillis() - dailyCache!!.datetime < DATA_EXPIRE) {
+            call.respondText { dailyCache!!.data }
+            return@get
+        }
         call.respondText {
             try {
                 val mDate = mutableListOf<String>()
@@ -58,9 +67,10 @@ fun Routing.nCoVMapRouting() {
                         mHeal.add(getString("heal").trim().toInt())
                     }
                 }
-                """{"date":${mDate.stringListToJson()},"confirm":${mConfirm.intListToJson()},"suspect":${mSuspect.intListToJson()},"dead":${mDead.intListToJson()},"heal":${mHeal.intListToJson()}}"""
+                val json = """{"date":${mDate.stringListToJson()},"confirm":${mConfirm.intListToJson()},"suspect":${mSuspect.intListToJson()},"dead":${mDead.intListToJson()},"heal":${mHeal.intListToJson()}}"""
+                dailyCache = DataCache(System.currentTimeMillis(), json)
+                json
             } catch (th: Throwable) {
-                println("error => $th")
                 """{"date":[],"confirm":[],"suspect":[],"dead":[],"heal":[]}"""
             }
         }
@@ -70,9 +80,13 @@ fun Routing.nCoVMapRouting() {
      * 获取全部详情数据
      */
     get("/detail") {
+        if (detailCache != null && System.currentTimeMillis() - detailCache!!.datetime < DATA_EXPIRE) {
+            call.respondText { detailCache!!.data }
+            return@get
+        }
         call.respondText {
             try {
-                JSONArray(JSONObject(HttpClient().get<String>(dataUrl)).optString("data")).filter { country ->
+                val json = JSONArray(JSONObject(HttpClient().get<String>(dataUrl)).optString("data")).filter { country ->
                     (country as JSONObject).optString("country") == "中国"
                 }.groupBy { area ->
                     (area as JSONObject).optString("area")
@@ -88,6 +102,8 @@ fun Routing.nCoVMapRouting() {
                         }
                     }
                 }.dataToJson()
+                detailCache = DataCache(System.currentTimeMillis(), json)
+                json
             } catch (th: Throwable) {
                 "[]"
             }

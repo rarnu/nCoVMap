@@ -15,4 +15,4 @@ var dailyCache: DataCache? = null
 /**
  * 详情数据缓存
  */
-var dataCache: DataCache? = null
+var detailCache: DataCache? = null
