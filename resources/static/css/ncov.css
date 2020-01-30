@@ -1,0 +1,95 @@
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+#diag {
+    width: 60%;
+    height: 100%;
+    float: left;
+}
+
+#detail {
+    width: 40%;
+    height: 100%;
+    float: right;
+}
+
+#map {
+    width: 80%;
+    height: 60%;
+    margin-left: 10%;
+}
+
+#daily {
+    width: 100%;
+    height: 40%;
+}
+
+#databar {
+    width: 100%;
+    height: 36px;
+}
+
+#databar #area {
+    width: calc(40% - 4px);
+    height: 100%;
+    background-color: #E3E7F3;
+    padding-left: 4px;
+    line-height: 36px;
+    float: left;
+}
+
+#databar #confirm {
+    width: calc(20% - 4px);
+    height: 100%;
+    background-color: #F4BAB0;
+    padding-left: 4px;
+    line-height: 36px;
+    float: left;
+}
+
+#databar #dead {
+    width: calc(20% - 4px);
+    height: 100%;
+    background-color: #B4C0D5;
+    padding-left: 4px;
+    line-height: 36px;
+    float: left;
+}
+
+#databar #heal {
+    width: calc(20% - 4px);
+    height: 100%;
+    background-color: #66CC99;
+    padding-left: 4px;
+    line-height: 36px;
+    float: left;
+}
+
+.detailbar {
+    width: 100%;
+    height: 36px;
+}
+
+.detailbar .area {
+    width: calc(40% - 4px);
+    height: 100%;
+    padding-left: 4px;
+    line-height: 36px;
+    float: left;
+}
+
+.detailbar .data {
+    width: calc(20% - 4px);
+    height: 100%;
+    padding-left: 4px;
+    line-height: 36px;
+    float: left;
+}
+
+.scrolllist {
+    width: 100%;
+    height: calc(100% - 36px);
+    overflow:scroll;
+}

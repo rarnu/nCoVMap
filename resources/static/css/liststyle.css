@@ -1,0 +1,72 @@
+*{
+	padding: 0;
+	margin : 0;
+}
+
+.list{
+	width : 100%;
+}
+
+.list ul{
+	list-style: none;
+}
+
+.list>ul>li{
+	width        : 100%;
+	border-bottom: 1px solid #DDDDDD;
+	-webkit-transition: .3s ease;
+	-moz-transition: .3s ease;
+	-o-transition: .3s ease;
+	transition: .3s ease;
+}
+
+.list>ul>li div[class=title]{
+	width      : 100%;
+	background : #FFFFFF;
+	height     : 36px;
+	line-height: 36px;
+	padding    : 0;
+	border     : none;
+	position   : relative;
+	font-size  : 20px;
+}
+
+.list>ul>li div[class=title]>span{
+	position: absolute;
+	right: 10%;
+}
+
+.list-se{
+	overflow: hidden;
+	display: none;
+}
+
+.list-se>div{
+	background: #EEEEEE !important;
+	color     :#666;
+}
+
+.list-se>li{
+	position: relative;
+	right   : -100%;
+	-webkit-transition: right .5s;
+	-moz-transition   : right .5s;
+	-o-transition     : right .5s;
+	transition        : right .5s;
+}
+
+.list-se>li>div{
+	background  : #FFFFFF;
+	color       : #000;
+	height      : 36px;
+	-webkit-box-sizing :border-box;
+	box-sizing :border-box;
+	padding-left: 10px;
+	line-height : 36px;
+	border-left : 5px solid #FFFFFF;
+}
+
+.list-se>li>div:hover{
+	border-color: #FFFFFF;
+	background  : #FFFFFF;
+}
